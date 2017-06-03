@@ -34,6 +34,8 @@ def tocsr(filename, as_asymm=False):
             ptr.append(len(val) - 1)
             row = row_current
 
+    ptr.append(nnz)
+
     return(M, N, nnz, ptr, ind, val)
 
 def todense(filename, as_asymm=False):
@@ -42,10 +44,11 @@ def todense(filename, as_asymm=False):
     A = [[0 for i in range(M)] for j in range(N)]
     for l in lines:
         ll = l.split(' ')
-        col = int(ll[0]) - 1)
-        row = int(ll[1]) - 1)
-        val = float(ll[2]))
-        A[col,row] = val
+        col = int(ll[0]) - 1
+        row = int(ll[1]) - 1
+        val = float(ll[2])
+        A[col][row] = val
         if as_asymm is True:
-            A[row,col] = val
+            A[row][col] = val
+
     return(M, N, nnz, A)
